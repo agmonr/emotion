@@ -17,15 +17,14 @@ class Emotion(object):
 
     def capture(self):
         'Get an image.'
-        _, img = self.cap.read()
+        _, self.img = self.cap.read()
         if self.frame_before != []:
-            self.frame = self.black - ((
-                cv2.addWeighted(img, 0.8, self.frame_before, 0.1, 0) -
-                self.frame_before)).clip(120, 255)
-        else:
-            self.black = img.clip(0, 0)
+            self.frame =  ((
+                cv2.addWeighted(self.img, 0.7, self.frame_before, 0.1, 0) -
+                self.frame_before)).clip(120, 240)
+	self.black = self.img.clip(0, 0)
 
-        self.frame_before = img
+        self.frame_before = self.img
 
     def show(self):
         'Show the motion.'
