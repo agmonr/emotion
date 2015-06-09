@@ -32,11 +32,9 @@ class emotion:
 	def show(self):
 		while(True):
 			self.capture()
-			cv2.namedWindow("Frame", cv2.WINDOW_AUTOSIZE )
-			r = int(long(YScreenResulation*1000 / self.frame.shape[0]*1000)) # *1000 cause we need better precision
-			dim = (int(self.frame.shape[1]*r)/1000000,YScreenResulation)
-			frame=cv2.resize(self.frame, dim, interpolation = cv2.INTER_AREA)
-			cv2.moveWindow("Frame", int((XScreenResulation-self.frame.shape[1])/2), 0) 
+			cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN )
+			cv2.setWindowProperty("Frame", cv2.WND_PROP_FULLSCREEN, cv2.cv.CV_WINDOW_FULLSCREEN)
+			self.frmae=cv2.flip(self.frame,1)
 			cv2.imshow("Frame",self.frame)
 	
     			if cv2.waitKey(1) & 0xFF == ord('q'):
