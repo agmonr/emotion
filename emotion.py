@@ -2,7 +2,7 @@
 # pylint: disable=no-member
 'Motion visualization.'
 import cv2
-
+import random
 
 class Emotion(object):
     'This is a mega class that does everything. Considered harmful.'
@@ -12,16 +12,31 @@ class Emotion(object):
         self.frame_before = []
         self.black = None
 
+	self.por=int(random.random()*5)
+
         self.capture()
         self.show()
 
     def capture(self):
         'Get an image.'
         _, self.img = self.cap.read()
+
+	
         if self.frame_before != []:
-		self.Psyc04()
+		self.Master()
 
         self.frame_before = self.img
+
+
+    def Master(self):
+	
+	#self.Psyc01()
+	#self.Psyc02()
+	#self.Psyc03()
+	#self.Psyc031()
+	#self.Psyc04()
+	#self.Psyc05()
+	self.Psyc06()
 
     def Psyc01(self):
 	self.frame = self.frame_before- ((
@@ -35,14 +50,36 @@ class Emotion(object):
 
     def Psyc03(self):
 	self.frame = ((
-                cv2.addWeighted(self.img, 1, self.frame_before, 1, 0) -
+                cv2.addWeighted(self.img, 1, self.frame_before, 1, 0,) -
                 self.frame_before))
+    
+    def Psyc031(self):
+	self.frame = ((
+                cv2.addWeighted(self.img, -5, self.frame_before, -1, 10) -
+                self.frame_before)).clip(0,250)
+	
+
 	
     def Psyc04(self):
 	self.black=self.img.clip(0,0)
 	self.frame = self.black-((
                 cv2.addWeighted(self.img, 0.6, self.frame_before, 0.1, 0) -
                 self.frame_before))
+
+    def Psyc05(self):
+	self.black=self.img.clip(0,0)
+	self.frame = self.black- (( 
+                cv2.addWeighted(self.img, 0.8, self.frame_before, 0.3, 0) -
+                self.frame_before)).clip(0,250)
+
+    def Psyc06(self):
+
+	self.black=self.img.clip(0,0)
+	self.frame = self.black-(self.img- ((
+                cv2.addWeighted(self.img, 0.7, self.frame_before, 0.5, 0) -
+                self.frame_before)).clip(120, 240))
+
+
 	
 
     def show(self):
