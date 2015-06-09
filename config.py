@@ -1,2 +1,0 @@
-YScreenResulation=800
-XScreenResulation=1000
