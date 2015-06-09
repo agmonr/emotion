@@ -12,9 +12,9 @@ class Emotion(object):
         self.frame_before = []
         self.black = None
 
-	self.Methods=[self.Psyc01,self.Psyc02,self.Psyc03,self.Psyc031]
-	self.Por=int(random.random()*len(self.Methods))
-	print self.Por
+	self.Methods=[self.Psyc01,self.Psyc02,self.Psyc03,self.Psyc031,self.Psyc04,self.Psyc05,self.Psyc06]
+	self.Por=0
+	print self.Methods[self.Por]
         self.capture()
         self.show()
 
@@ -32,15 +32,6 @@ class Emotion(object):
     def Master(self,methodToRun):
     	result = methodToRun()
 
-
-#method2(method1)	
-# 	self.Psyc01()
-	#self.Psyc02()
-	#self.Psyc03()
-	#self.Psyc031()
-	#self.Psyc04()
-	#self.Psyc05()
-#	self.Psyc06()
 
     def Psyc01(self):
 	self.frame = self.frame_before- ((
@@ -95,8 +86,10 @@ class Emotion(object):
             self.frmae = cv2.flip(self.frame, 1)
             cv2.imshow("Frame", self.frame)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            if cv2.waitKey(1) & 0xFF == ord('a'):
+		self.Por=self.Por+1
+		if self.Por>=len(self.Methods):
+			self.Por=0
 
         self.cap.release()
         cv2.destroyAllWindows()
