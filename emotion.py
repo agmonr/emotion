@@ -12,8 +12,9 @@ class Emotion(object):
         self.frame_before = []
         self.black = None
 
-	self.por=int(random.random()*5)
-
+	self.Methods=[self.Psyc01,self.Psyc02,self.Psyc03,self.Psyc031]
+	self.Por=int(random.random()*len(self.Methods))
+	print self.Por
         self.capture()
         self.show()
 
@@ -23,20 +24,23 @@ class Emotion(object):
 
 	
         if self.frame_before != []:
-		self.Master()
+		self.Master(self.Methods[self.Por])
 
         self.frame_before = self.img
 
 
-    def Master(self):
-	
-	#self.Psyc01()
+    def Master(self,methodToRun):
+    	result = methodToRun()
+
+
+#method2(method1)	
+# 	self.Psyc01()
 	#self.Psyc02()
 	#self.Psyc03()
 	#self.Psyc031()
 	#self.Psyc04()
 	#self.Psyc05()
-	self.Psyc06()
+#	self.Psyc06()
 
     def Psyc01(self):
 	self.frame = self.frame_before- ((
@@ -73,7 +77,6 @@ class Emotion(object):
                 self.frame_before)).clip(0,250)
 
     def Psyc06(self):
-
 	self.black=self.img.clip(0,0)
 	self.frame = self.black-(self.img- ((
                 cv2.addWeighted(self.img, 0.7, self.frame_before, 0.5, 0) -
