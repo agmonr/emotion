@@ -19,12 +19,31 @@ class Emotion(object):
         'Get an image.'
         _, self.img = self.cap.read()
         if self.frame_before != []:
-            self.frame =  ((
-                cv2.addWeighted(self.img, 0.7, self.frame_before, 0.1, 0) -
-                self.frame_before)).clip(120, 240)
-	self.black = self.img.clip(0, 0)
+		self.Psyc04()
 
         self.frame_before = self.img
+
+    def Psyc01(self):
+	self.frame = self.frame_before- ((
+                cv2.addWeighted(self.img, 0.7, self.frame_before, 0.5, 0) -
+                self.frame_before)).clip(120, 240)
+	
+    def Psyc02(self):
+	self.frame = self.img*2- ((
+                cv2.addWeighted(self.img, 0.7, self.frame_before, 0.5, 0) -
+                self.frame_before)).clip(120, 240)
+
+    def Psyc03(self):
+	self.frame = ((
+                cv2.addWeighted(self.img, 1, self.frame_before, 1, 0) -
+                self.frame_before))
+	
+    def Psyc04(self):
+	self.black=self.img.clip(0,0)
+	self.frame = self.black-((
+                cv2.addWeighted(self.img, 0.6, self.frame_before, 0.1, 0) -
+                self.frame_before))
+	
 
     def show(self):
         'Show the motion.'
