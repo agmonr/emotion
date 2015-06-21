@@ -12,8 +12,8 @@ class Emotion(object):
         self.frame_before = []
         self.black = None
 
-	self.Methods=[self.Psyc01,self.Psyc02,self.Psyc03,self.Psyc031,self.Psyc04,self.Psyc05,self.Psyc06]
-	self.Por=0
+	self.Methods=[self.Psyc01,self.Psyc02,self.Psyc03,self.Psyc031,self.Psyc032,self.Psyc04,self.Psyc05,self.Psyc06,self.Psyc07]
+	self.Por=8
 	print self.Methods[self.Por]
         self.capture()
         self.show()
@@ -52,7 +52,13 @@ class Emotion(object):
 	self.frame = ((
                 cv2.addWeighted(self.img, -5, self.frame_before, -1, 10) -
                 self.frame_before)).clip(0,250)
-	
+    
+    def Psyc032(self):
+	bright=self.img.clip(200,255)
+	self.frame = bright-(( 
+                cv2.addWeighted(self.img, 1, self.frame_before, 1, 10,) -
+                self.frame_before)).clip(50,200)
+ 
 
 	
     def Psyc04(self):
@@ -73,6 +79,9 @@ class Emotion(object):
                 cv2.addWeighted(self.img, 0.7, self.frame_before, 0.5, 0) -
                 self.frame_before)).clip(120, 240))
 
+    def Psyc07(self):
+	self.frame = (( self.img+cv2.addWeighted(self.img, 0.1, self.frame_before, 0.1, 60) - self.frame_before ).clip(0,60)-40 )
+	#self.frame=self.img-self.frame_before
 
 	
 
@@ -83,13 +92,15 @@ class Emotion(object):
             cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty(
                 "Frame", cv2.WND_PROP_FULLSCREEN, cv2.cv.CV_WINDOW_FULLSCREEN)
-            self.frmae = cv2.flip(self.frame, 1)
+            self.frmae = cv2.flip(self.frame, 0)
             cv2.imshow("Frame", self.frame)
 
             if cv2.waitKey(1) & 0xFF == ord('a'):
 		self.Por=self.Por+1
 		if self.Por>=len(self.Methods):
 			self.Por=0
+		
+		print str(self.Por)+"==="+str(self.Methods[self.Por])
 
         self.cap.release()
         cv2.destroyAllWindows()
