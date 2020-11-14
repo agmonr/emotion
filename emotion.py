@@ -148,6 +148,8 @@ class Emotion(object):
             self.capture()
             imS = cv2.resize(self.frame, (1920, 1024))
             ims = cv2.flip(imS, 1)
+            cv2.namedWindow('Frame', cv2.WINDOW_FREERATIO)
+            cv2.setWindowProperty('Frame', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("Frame", ims)
             self.key_action()
             
