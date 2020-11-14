@@ -31,8 +31,8 @@ class Emotion(object):
         _, self.img = cap.read()
         
         if self.frame_before != []:
-            
             self.Master(self.Methods[self.Por])
+            
         self.frame_before = self.img
         self.frame_before1 = self.frame_before
         self.frame_before2 = self.frame_before1
@@ -43,8 +43,9 @@ class Emotion(object):
 
 
     def Psyc01(self):
+        print ('Psyc01')
         self.frame=100-((self.frame_before-(self.img*2-self.frame_before2))*5)
-        #self.frame=self.img
+        
 
         
     def Psyc011(self):
@@ -68,19 +69,22 @@ class Emotion(object):
             cv2.addWeighted(self.img, 0.48, self.frame_before2, 0.45, 0)))        
         	
     def Psyc02(self):
+        print ('Psyc02')
         self.frame = self.img*2- ((
                 cv2.addWeighted(self.img, 0.7, self.frame_before2, 0.5, 0) -
                 self.frame_before)).clip(120, 240)
 
     def Psyc03(self):
+        print ('Psyc03')
         self.frame = ((
-                cv2.addWeighted(self.img, 1, self.frame_before, 1, 0,) -
+                self.img-cv2.addWeighted(self.img, 0.8, self.frame_before, 1, -5) -
                 self.frame_before2))
     
     def Psyc031(self):
+        print ('Psyc031')
         self.frame = ((
-                cv2.addWeighted(self.img, -5, self.frame_before, -1, 10) -
-                self.frame_before2)).clip(0,250)
+                self.img-cv2.addWeighted(self.img, 2, self.frame_before2, 5, 2) -
+                self.frame_before2)).clip(20,150)
     
     def Psyc032(self):
         bright=self.img.clip(200,255)
@@ -135,7 +139,7 @@ class Emotion(object):
             self.Por=0
 
         if self.Por<0:
-            self.Por-len(self.Methods)
+            self.Por=len(self.Methods)
 
 
     def show(self):
