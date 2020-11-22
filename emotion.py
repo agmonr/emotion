@@ -60,7 +60,7 @@ class Emotion(object):
             else:
                 self.FunDirection=0
             
-            
+         
        
         if self.FuncDelay>20:
             self.FunCount=self.FunCount+self.FunDirection
@@ -81,12 +81,19 @@ class Emotion(object):
         'Get an image.'
         _, self.img = cap.read()
         
-        if self.frame_before != []:
-            self.ColorMotion(self.FunCount)
-            
-        self.frame_before = self.img
-        self.frame_before1 = self.frame_before
+
         self.frame_before2 = self.frame_before1
+        self.frame_before1 = self.frame_before
+        self.frame_before = self.img
+        
+        
+
+
+        if self.frame_before2 != []:
+            self.ColorMotion(self.FunCount)
+
+            
+        
 
     
     def ColorMotion(self, effectId):
