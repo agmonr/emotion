@@ -23,12 +23,8 @@ class Emotion(object):
         self.FunCount = 0 #direction of moving using s and x
         self.FunDirection=0
         self.FuncDelay=0
-
-
-
         self.black = None
         self.FunCount=0
-
         self.capture()
         self.show()
 
@@ -38,12 +34,12 @@ class Emotion(object):
         if Key & 0xFF == ord('q'):
             sys.exit(0)
 
-        if Key & 0xFF == 81: #key left
-            self.FunCount=self.FunCount+1
+        if Key & 0xFF == 81: #key right
+            self.FunCount=self.FunCount-1
             self.FunDirection=0
             
-        if Key & 0xFF == 83: #key right
-            self.FunCount=self.FunCount-1
+        if Key & 0xFF == 83: #key left
+            self.FunCount=self.FunCount+1
             self.FunDirection=0
             
         if Key & 0xFF == 82: #key up
@@ -52,15 +48,14 @@ class Emotion(object):
             else:
                 self.FunDirection=0
 
-        print (Key & 0xFF)
+        #print (Key & 0xFF)
+        print (self.FunCount)
 
         if Key & 0xFF == 84: #key down
             if self.FunDirection==0:
                 self.FunDirection=-1
             else:
                 self.FunDirection=0
-            
-         
        
         if self.FuncDelay>20:
             self.FunCount=self.FunCount+self.FunDirection
@@ -92,17 +87,15 @@ class Emotion(object):
         if self.frame_before2 != []:
             self.ColorMotion(self.FunCount)
 
-            
-        
-
-    
+                  
+   
     def ColorMotion(self, effectId):
 
         if effectId == 0:  
             self.frame=100-((self.frame_before-(self.img*2-self.frame_before2))*5)
             
         if effectId == 1:  
-            self.frame = self.frame_before- ((cv2.addWeighted(self.img, 0.48, self.frame_before, 0.45, 0)))
+            self.frame = self.frame_before- ((cv2.addWeighted(self.img, 0.48, self.frame_before2*self.frame_before1*self.frame_before, 0.45, 0)))
  
         if effectId == 2:  
             self.frame = self.frame_before- ((
